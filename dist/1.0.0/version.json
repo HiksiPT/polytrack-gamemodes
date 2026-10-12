@@ -1,0 +1,12 @@
+{
+  "main": "main.mod.js",
+  "targets": [
+    "0.6.3"
+  ],
+  "dependencies": [
+    {
+      "id": "ptcollisions",
+      "version": ">=1.2.0"
+    }
+  ]
+}
