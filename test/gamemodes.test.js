@@ -142,12 +142,14 @@ const MixinType = { INSERT: 3, REPLACEBETWEEN: 5 };
     registerSimWorkerMixin: (m) => workerMixins.push(m),
     registerSettingCategory() {}, registerSetting() {},
     getSetting: (id) => world.settings[id],
+    saveModsToLocalStorage: () => { pml.saved = (pml.saved || 0) + 1; },
     getFromPolyTrack: () => ({
       watchGames: (cb) => cb(sessions), session: (g) => sessions.get(g), remotes: () => remotes, car: () => world.car, life: () => world.life,
       track: () => track, trackData: () => data, isHost: (c) => c.host, peers: (c) => c.peers, isRespawnKey: (g, e) => e.code === "KeyR",
     }),
   };
   await mod.init(pml);
+  check("mod: switches itself to the latest version and saves that, once", mod.savedLatest === true && pml.saved === 1);
   let clock = 1000;
   const frame = (ms = 16) => { clock += ms; frames.splice(0).forEach((cb) => cb(clock)); };
   const lastState = (id = 5) => sent[id][sent[id].length - 1];

@@ -234,6 +234,18 @@ class CupGamemodes extends PolyMod {
       }
     };
     requestAnimationFrame(tick);
+
+    // The loader's own "Auto Update" switch does not reach the loader in PML Core 1.3.8 (it is
+    // passed to the wrong function), so mods imported by link stay on the version they were
+    // imported at. Asking to be saved as "latest" makes a reload pick up new uploads instead.
+    try {
+      if (!this.savedLatest) {
+        this.savedLatest = true;
+        pml.saveModsToLocalStorage();
+      }
+    } catch (error) {
+      console.error("[Cup Gamemodes] could not switch to automatic updates:", error);
+    }
     console.log(`[Cup Gamemodes] ${this.modID}:${this.modVersion} ready`);
   }
 
